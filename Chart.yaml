@@ -1,6 +1,7 @@
 apiVersion: v2
 name: events
-description: A Helm chart for Kubernetes
+description: |
+  Deploys gitlab webhook to argo workflows
 type: application
 version: 0.1.0
 appVersion: "1.16.0"
