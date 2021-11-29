@@ -24,7 +24,7 @@ triggers:
                   - name: branch
                     value: master
                   - name: image
-                    value: "harbor.openinfra.lan/library/ansible:4.8"
+                    value: "boolman/ansible:4.8"
                   - name: project_id
                     value: projectid
                   - name: merge_request_iid
