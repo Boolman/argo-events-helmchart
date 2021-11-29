@@ -9,7 +9,7 @@ spec:
   {{- end }}
   routes:
     - kind: Rule
-      match: Host(`{{ .Values.webhook.url }}`) && PathPrefix(`/{{ .Values.webhook.endpoint }}`)
+      match: Host(`{{ trimPrefix "https://" .Values.webhook.url }}`) && PathPrefix(`/{{ .Values.webhook.endpoint }}`)
       services:
         - kind: Service
           name: {{ .Release.Name }}-eventsource-svc
