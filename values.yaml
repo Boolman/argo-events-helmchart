@@ -1,0 +1,15 @@
+labels: {}
+Port: 12000
+ProjectID: 42
+GitBaseURL: https://git
+
+Ingress:
+  Entrypoints:
+    - web
+    - websecure
+  Certificate: wildcard-cert
+webhook:
+  endpoint: push
+  port: "12000"
+  method: POST
+  url: https://events

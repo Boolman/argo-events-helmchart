@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: { { .Release.Name } }
+spec:
+  template:
+    container:
+      volumeMounts:
+        - mountPath: /etc/ssl/certs
+          name: ca-certs
+    volumes:
+      - configMap:
+          name: ca-certificates
+        name: ca-certs
+  service:
+    ports:
+      - port: { { .Values.Port } }
+        targetPort: { { .Values.Port } }
+  gitlab:
+    git:
+      projectID: { { .Values.ProjectID | quote } }
+      webhook:
+        endpoint: /{{ .Values.webhook.endpoint }}
+        method: { { .Values.webhook.method } }
+        url: { { .Values.webhook.url } }
+        port: { { .Values.Port | quote } }
+      events:
+        - PushEvents
+      accessToken:
+        key: token
+        name: gitlab-accesskey
+      enableSSLVerification: false
+      gitlabBaseURL: { { .Values.GitBaseURL } }

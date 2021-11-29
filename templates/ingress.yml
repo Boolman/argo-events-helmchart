@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  entryPoints:
+  {{- range .Values.Ingress.Entrypoints }}
+    - {{ . }}
+  {{- end }}
+  routes:
+    - kind: Rule
+      match: Host(`{{ .Values.webhook.url }}`) && PathPrefix(`/{{ .Values.webhook.endpoint }}`)
+      services:
+        - kind: Service
+          name: {{ .Release.Name }}-eventsource-svc
+          port: {{ .Values.Port }}
+          scheme: http
+  tls:
+    secretName: {{ .Values.Ingress.Certificate }}
