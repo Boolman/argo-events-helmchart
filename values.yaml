@@ -13,3 +13,4 @@ webhook:
   port: "12000"
   method: POST
   url: https://events
+Trigger: molecule
